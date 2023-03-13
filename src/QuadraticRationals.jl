@@ -1,15 +1,19 @@
 module QuadraticRationals
 using Primes
 
-import Base: √
-export _magic_sqrt, _is_square_free, QZ_type, Sqrt
+# export _magic_sqrt, _is_square_free, QZ_type
+
+export Sqrt, QR, get_parts
 
 QZ_type = Union{Int,Rational{Int}}
 
-struct QR{k} <: Number 
+struct QR{k} <: Number
     a::Rational{Int}
     b::Rational{Int}
 end
+
+QR{d}(a::QZ_type) where {d} = QR{d}(a, 0)
+
 
 """
     _is_square_free(n::Int)::Bool
@@ -28,19 +32,17 @@ If `n` is a perfect square,
 then an `Int` value is returned. Otherwise, the result is of the form
 `0+b√d` where `b` and `d` are integers.
 """
-function Sqrt(n::Int)::Union{Int, QR}
-    if n>=0   
+function Sqrt(n::Int)::Union{Int,QR}
+    if n >= 0
         s = isqrt(n)
-        if s*s == n 
-            return s 
+        if s * s == n
+            return s
         end
     end
 
-    b,d = _magic_sqrt(n)
-    return QR{d}(0,b)
+    b, d = _magic_sqrt(n)
+    return QR{d}(0, b)
 end
-
-
 
 """
     _magic_sqrt(n::Int)::Tuple{Int,Int}
@@ -69,6 +71,16 @@ function _magic_sqrt(n::Int)::Tuple{Int,Int}
         b *= p^mod(t, 2)
     end
     return a, b
+end
+
+
+"""
+    get_parts(x::QR{d}) where d
+
+If `x = a + b*√d`, return the three-tuple `(a,b,d)`.
+"""
+function get_parts(x::QR{d})::Tuple{Rational{Int},Rational{Int},Int} where {d}
+    return x.a, x.b, d
 end
 
 
