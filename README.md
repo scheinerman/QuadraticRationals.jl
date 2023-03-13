@@ -78,6 +78,5 @@ square-free.
 
 ## To Do
 
-* The output format is rather ugly. `2-Sqrt(11)` renders as `[(2//1) + (-1//1)*√11]` 
+The output format is rather ugly. `2-Sqrt(11)` renders as `[(2//1) + (-1//1)*√11]` 
 but would be nicer as `2 - √11`. I should fix this, I suppose.
-* Include absolute value function. This should be easy. 

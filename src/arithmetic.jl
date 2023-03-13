@@ -74,3 +74,18 @@ end
 function (==)(x::QZ_type, y::QR{d}) where {d}
     return QR{d}(x, 0) == y
 end
+
+
+# I'm not 100% sure this is a good way to define 
+# the absolute value of a QR number. Leaving this 
+# commented out for how. 
+
+# export abs
+
+# function abs(z::QR{k})::Float64 where k
+#     a,b,d = get_parts(z)
+#     if d > 0
+#         return abs(a + b*sqrt(d))
+#     end
+#     return abs(a + b*im*sqrt(-d))
+# end
