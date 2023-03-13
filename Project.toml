@@ -1,0 +1,7 @@
+name = "QuadraticRationals"
+uuid = "24a7753b-e0fe-47b8-adb9-9a0ca98f67d3"
+authors = ["Ed Scheinerman <ers@jhu.edu>"]
+version = "0.1.0"
+
+[deps]
+Primes = "27ebfcd6-29c5-5fa9-bf4b-fb8fc14df3ae"
