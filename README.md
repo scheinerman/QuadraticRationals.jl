@@ -2,17 +2,18 @@
 
 
 This module extends the rational numbers to numbers of the form `a+b*√d` 
-where `a` and `b` are rational and `d` is a square-free integer.
+where `a` and `b` are rational and `d` is a square-free integer. In other words,
+elements of `Q(√d)`.
 
-The function `Sqrt` is the primary means to create numbers of this form. 
+The function `Sqrt` is the primary tool to create numbers of this form. 
 ```
 julia> using QuadraticRationals
 
 julia> z = Sqrt(7)
-[(0//1) + (1//1)*√7]
+0 + √7
 
 julia> w = Sqrt(-9)
-[(0//1) + (3//1)*√-1]
+0 + 3⋅√-1
 
 julia> x = Sqrt(25)
 5
@@ -28,22 +29,22 @@ compare numbers with different values under the square root.
 julia> a = 3 - Sqrt(5); b = 4 + 2*Sqrt(5);
 
 julia> a+b
-[(7//1) + (1//1)*√5]
+7 + √5
 
 julia> a-b
-[(-1//1) + (-3//1)*√5]
+-1 - 3⋅√5
 
 julia> a*b
-[(2//1) + (2//1)*√5]
+2 + 2⋅√5
 
 julia> a/b
-[(-11//2) + (5//2)*√5]
+-11//2 + 5//2⋅√5
 
 julia> a==b
 false
 
 julia> 2a+5
-[(11//1) + (-2//1)*√5]
+11 - 2⋅√5
 ```
 
 ## Inspection
@@ -51,7 +52,7 @@ julia> 2a+5
 For `x = a + b*Sqrt(d)`, calling `get_parts(x)` returns the triple `(a,b,d)`:
 ```
 julia> z = 3 + 6*Sqrt(5)
-[(3//1) + (6//1)*√5]
+3 + 6⋅√5
 
 julia> get_parts(z)
 (3//1, 6//1, 5)
@@ -64,7 +65,7 @@ Numbers created with `Sqrt` (if not integers) have type `QR{d}` where `d`
 is a square-free integer.
 ```
 julia> z = 3 - Sqrt(-8)
-[(3//1) + (-2//1)*√-2]
+3 - 2⋅√-2
 
 julia> typeof(z)
 QR{-2}
@@ -75,8 +76,3 @@ arguments. However, *do not* create new numbers directly by typing
 `QR{d}(a,b)` because no checking is done to ensure that `d` is 
 square-free.
 
-
-## To Do
-
-The output format is rather ugly. `2-Sqrt(11)` renders as `[(2//1) + (-1//1)*√11]` 
-but would be nicer as `2 - √11`. I should fix this, I suppose.
