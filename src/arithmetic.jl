@@ -1,4 +1,4 @@
-import Base: (+), (-), (*), (/), (//), conj, inv, iszero, (==)
+import Base: (+), (-), (*), (/), (//), conj, inv, iszero, (==), isreal
 
 function (+)(x::QR{d}, y::QR{d})::QR{d} where {d}
     QR{d}(x.a + y.a, x.b + y.b)
@@ -89,17 +89,28 @@ function (==)(x::QZ_type, y::QR{d}) where {d}
     return QR{d}(x, 0) == y
 end
 
+export value
+"""
+    value(x::QR{d})::Union{Float64,ComplexF64} where {d}
 
-# I'm not 100% sure this is a good way to define 
-# the absolute value of a QR number. Leaving this 
-# commented out for how. 
+Return the value of `x` as either floating point number 
+(if `d` is positive) or as a complex floating point number 
+(if `d` is negative).
+"""
+function value(x::QR{d})::Union{Float64,ComplexF64} where {d}
+    a, b, k = get_parts(x)
 
-# export abs
+    if k ≥ 0
+        return a + b * sqrt(k)
+    end
 
-# function abs(z::QR{k})::Float64 where k
-#     a,b,d = get_parts(z)
-#     if d > 0
-#         return abs(a + b*sqrt(d))
-#     end
-#     return abs(a + b*im*sqrt(-d))
-# end
+    return a + b * sqrt(-k) * im
+end
+
+value(x::QZ_type)::Float64 = Float64(x)
+
+
+function isreal(x::QR{d})::Bool where d
+    return d ≥ 0 
+end
+

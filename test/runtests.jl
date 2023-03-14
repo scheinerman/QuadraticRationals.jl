@@ -11,3 +11,8 @@ x = 12 - Sqrt(11)
 @test 2x == x+x 
 @test (2x)//2 == x
 @test (2x)//x == 2
+
+@test Sqrt(8) == 2Sqrt(2)
+
+@test value(Sqrt(2)) == sqrt(2)
+@test !isreal(Sqrt(-3))

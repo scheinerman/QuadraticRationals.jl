@@ -20,8 +20,9 @@ julia> x = Sqrt(25)
 ```
 Notice:
 * `√(-9) = 3*√(-1)` so the number under the square root sign is square free.
-* `25` is a perfect square, so an `Int` value is returned. 
+* Applying `Sqrt` to a perfect square returns an `Int`.
 
+## Operations
 
 All the usual arithmetic operations are available. However, one cannot operate or
 compare numbers with different values under the square root.
@@ -45,6 +46,25 @@ false
 
 julia> 2a+5
 11 - 2⋅√5
+```
+
+The `value` function renders a quadratic rational number as either a floating 
+point number or a complex floating point number:
+```
+julia> value(1+Sqrt(2))
+2.414213562373095
+
+julia> value(1+Sqrt(-2))
+1.0 + 1.4142135623730951im
+```
+
+The function `isreal` may be applied as expected:
+```
+julia> isreal(1+Sqrt(2))
+true
+
+julia> isreal(1+Sqrt(-2))
+false
 ```
 
 ## Inspection
