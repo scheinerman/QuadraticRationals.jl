@@ -1,4 +1,4 @@
-import Base: (+), (-), (*), (/), conj, inv, iszero, (==)
+import Base: (+), (-), (*), (/), (//), conj, inv, iszero, (==)
 
 function (+)(x::QR{d}, y::QR{d})::QR{d} where {d}
     QR{d}(x.a + y.a, x.b + y.b)
@@ -64,6 +64,20 @@ end
 function (/)(x::QZ_type, y::QR{d})::QR{d} where {d}
     return QR{d}(x, 0) / y
 end
+
+
+
+function (//)(x::QR{d}, y::QR{d})::QR{d} where {d}
+    return x * inv(y)
+end
+function (//)(x::QR{d}, y::QZ_type)::QR{d} where {d}
+    return x / QR{d}(y, 0)
+end
+function (//)(x::QZ_type, y::QR{d})::QR{d} where {d}
+    return QR{d}(x, 0) / y
+end
+
+
 
 function (==)(x::QR{d}, y::QR{d}) where {d}
     return x.a == y.a && x.b == y.b
