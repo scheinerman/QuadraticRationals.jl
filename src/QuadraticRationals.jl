@@ -3,8 +3,12 @@ using Primes
 
 # export _magic_sqrt, _is_square_free, QZ_type
 
-export Sqrt, QR, get_parts
+export Sqrt, QR, get_parts, QZ_type
 
+"""
+    QZ_type
+Type that is either `Int` or `Rational{Int}`
+"""
 QZ_type = Union{Int,Rational{Int}}
 
 struct QR{k} <: Number
