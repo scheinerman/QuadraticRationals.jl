@@ -1,4 +1,4 @@
-import Base: (+), (-), (*), (/), (//), conj, inv, iszero, (==), isreal
+import Base: (+), (-), (*), (/), (//), conj, inv, iszero, (==), isreal, isless
 
 function (+)(x::_QR{d}, y::_QR{d})::_QR{d} where {d}
     _QR{d}(x.a + y.a, x.b + y.b)
@@ -110,7 +110,23 @@ end
 value(x::QZ_type)::Float64 = Float64(x)
 
 
-function isreal(x::_QR{d})::Bool where d
-    return d ≥ 0 
+function isreal(x::_QR{d})::Bool where {d}
+    return d ≥ 0
 end
 
+
+function isless(x::_QR{d}, y::_QR{d})::Bool where {d}
+    if d < 0
+        error("Cannot compare $x and $y because they are complex")
+    end
+
+    return value(x) < value(y)
+end
+
+function isless(x::_QR{d}, y::QZ_type)::Bool where {d}
+    isless(x, _QR{d}(y))
+end
+
+function isless(x::QZ_type, y::_QR{d})::Bool where {d}
+    return isless(_QR{d}(x), y)
+end

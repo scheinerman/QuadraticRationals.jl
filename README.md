@@ -22,7 +22,7 @@ Notice:
 * `√(-9) = 3*√(-1)` so the number under the square root sign is square free.
 * Applying `Sqrt` to a perfect square returns an `Int`.
 
-## Operations
+## Operations and Functions
 
 All the usual arithmetic operations are available. However, one cannot operate or
 compare numbers with different values under the square root.
@@ -65,6 +65,18 @@ true
 
 julia> isreal(1+Sqrt(-2))
 false
+```
+
+Real quadratic rational numbers can be compared using the usual `<` sorts of order
+relations:
+```
+julia> 3 + Sqrt(5) < 1 + 2*Sqrt(5)
+true
+```
+Note that imaginary values cannot be compared with order relations.
+```
+julia> 3-Sqrt(-5) < 2*Sqrt(-5)
+ERROR: Cannot compare 3 - √-5 and 0 + 2⋅√-5 because they are complex
 ```
 
 ## Inspection
