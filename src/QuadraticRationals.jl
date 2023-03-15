@@ -17,7 +17,7 @@ struct QR{k} <: Number
 end
 
 QR{d}(a::QZ_type) where {d} = QR{d}(a, 0)
-
+QR{d}(a::Bool) where {d} = QR{d}(Int(a))
 
 """
     _is_square_free(n::Int)::Bool
