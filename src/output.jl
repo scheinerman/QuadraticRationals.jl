@@ -11,7 +11,7 @@ end
 
 
 
-function _string(z::QR{k}) where {k}
+function _string(z::_QR{k}) where {k}
     a, b, d = get_parts(z)
     mult = "⋅"
 
@@ -24,9 +24,9 @@ function _string(z::QR{k}) where {k}
     return "$str_a" * sym * "$str_b√$d"
 end
 
-# show(io::IO, z::QR{N}) where {N} = print(io, "[($(z.a)) + ($(z.b))⋅√$N]")
-show(io::IO, z::QR{N}) where {N} = print(io, _string(z))
+# show(io::IO, z::_QR{N}) where {N} = print(io, "[($(z.a)) + ($(z.b))⋅√$N]")
+show(io::IO, z::_QR{N}) where {N} = print(io, _string(z))
 
 
 
-show(io::IO, ::MIME"text/plain", z::QR{N}) where {N} = show(io, z)
+show(io::IO, ::MIME"text/plain", z::_QR{N}) where {N} = show(io, z)

@@ -79,20 +79,20 @@ julia> get_parts(z)
 ```
 
 
-## The `QR` Type
+## The `QuadraticRational` Type
 
-Numbers created with `Sqrt` (if not integers) have type `QR{d}` where `d`
+Numbers created with `Sqrt` (if not integers) have type `QuadraticRational{d}` where `d`
 is a square-free integer.
 ```
 julia> z = 3 - Sqrt(-8)
 3 - 2⋅√-2
 
 julia> typeof(z)
-QR{-2}
+QuadraticRational{-2}
 ```
 
-This is useful to know when writing functions that take `QR` numbers as 
+This is useful to know when writing functions that take `QuadraticRational` numbers as 
 arguments. However, *do not* create new numbers directly by typing 
-`QR{d}(a,b)` because no checking is done to ensure that `d` is 
+`QuadraticRational{d}(a,b)` because no checking is done to ensure that `d` is 
 square-free.
 

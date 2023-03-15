@@ -3,7 +3,7 @@ using Primes
 
 # export _magic_sqrt, _is_square_free, QZ_type
 
-export Sqrt, QR, get_parts, QZ_type
+export Sqrt, QuadraticRational, get_parts, QZ_type
 
 """
     QZ_type
@@ -11,13 +11,15 @@ Type that is either `Int` or `Rational{Int}`
 """
 QZ_type = Union{Int,Rational{Int}}
 
-struct QR{k} <: Number
+struct QuadraticRational{k} <: Number
     a::Rational{Int}
     b::Rational{Int}
 end
 
-QR{d}(a::QZ_type) where {d} = QR{d}(a, 0)
-QR{d}(a::Bool) where {d} = QR{d}(Int(a))
+_QR = QuadraticRational
+
+_QR{d}(a::QZ_type) where {d} = _QR{d}(a, 0)
+_QR{d}(a::Bool) where {d} = _QR{d}(Int(a))
 
 """
     _is_square_free(n::Int)::Bool
@@ -28,7 +30,7 @@ _is_square_free(n::Int)::Bool = n == radical(n)
 
 
 """
-    Sqrt(n::Int)::Union{Int, QR}
+    Sqrt(n::Int)::Union{Int, _QR}
 
 Compute the square root of an integer `n`. 
 
@@ -36,7 +38,7 @@ If `n` is a perfect square,
 then an `Int` value is returned. Otherwise, the result is of the form
 `0+b√d` where `b` and `d` are integers.
 """
-function Sqrt(n::Int)::Union{Int,QR}
+function Sqrt(n::Int)::Union{Int,_QR}
     if n >= 0
         s = isqrt(n)
         if s * s == n
@@ -45,7 +47,7 @@ function Sqrt(n::Int)::Union{Int,QR}
     end
 
     b, d = _magic_sqrt(n)
-    return QR{d}(0, b)
+    return _QR{d}(0, b)
 end
 
 """
@@ -79,11 +81,11 @@ end
 
 
 """
-    get_parts(x::QR{d}) where d
+    get_parts(x::_QR{d}) where d
 
 If `x = a + b*√d`, return the three-tuple `(a,b,d)`.
 """
-function get_parts(x::QR{d})::Tuple{Rational{Int},Rational{Int},Int} where {d}
+function get_parts(x::_QR{d})::Tuple{Rational{Int},Rational{Int},Int} where {d}
     return x.a, x.b, d
 end
 
