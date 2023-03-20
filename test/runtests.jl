@@ -22,3 +22,9 @@ f = (Sqrt(5) + 1) / 2  # golden mean
 @test f * f - f - 1 == 0
 
 @test 1 + Sqrt(2) > 1 - Sqrt(2)
+
+x = 3 + Sqrt(5)
+@test get_parts(x) == (3, 1, 5)
+
+x = 2 // 3
+@test get_parts(x) == (2//3, 0, 1)

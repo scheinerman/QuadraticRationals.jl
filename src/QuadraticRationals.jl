@@ -89,6 +89,8 @@ function get_parts(x::_QR{d})::Tuple{Rational{Int},Rational{Int},Int} where {d}
     return x.a, x.b, d
 end
 
+get_parts(x::QZ_type) = (x,0,1)
+
 
 include("output.jl")
 include("arithmetic.jl")
