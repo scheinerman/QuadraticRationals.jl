@@ -90,6 +90,18 @@ julia> get_parts(z)
 (3//1, 6//1, 5)
 ```
 
+To access just the rational part of `a + b⋅√d` use `rational_part`. The result
+is an `Int` (if possible) or else a `Rational`:
+```
+julia> a = (3+Sqrt(5))/2
+3//2 + 1//2⋅√5
+
+julia> rational_part(a)
+3//2
+
+julia> rational_part(2a)
+3
+```
 
 ## The `QuadraticRational` Type
 

@@ -3,7 +3,7 @@ using Primes
 
 # export _magic_sqrt, _is_square_free, QZ_type
 
-export Sqrt, QuadraticRational, get_parts, QZ_type
+export Sqrt, QuadraticRational, get_parts, QZ_type, rational_part
 
 """
     QZ_type
@@ -87,6 +87,25 @@ If `x = a + b*√d`, return the three-tuple `(a,b,d)`.
 """
 function get_parts(x::_QR{d})::Tuple{Rational{Int},Rational{Int},Int} where {d}
     return x.a, x.b, d
+end
+
+get_parts(x::QZ_type) = (x,0,1)
+
+
+function _integerize(a::QZ_type)::QZ_type
+    isinteger(a) ? Int(a) : a 
+end
+
+"""
+    rational_part(x::_QR)
+
+If `x =a + b*√d`, return `a`.
+"""
+function rational_part(x::_QR)
+    _integerize(x.a)
+end
+function rational_part(x::QZ_type)
+    _integerize(x)
 end
 
 get_parts(x::QZ_type) = (x,0,1)
