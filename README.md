@@ -10,10 +10,10 @@ The function `Sqrt` is the primary tool to create numbers of this form.
 julia> using QuadraticRationals
 
 julia> z = Sqrt(7)
-0 + √7
+√7
 
 julia> w = Sqrt(-9)
-0 + 3⋅√-1
+3⋅√-1
 
 julia> x = Sqrt(25)
 5
