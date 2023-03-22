@@ -3,7 +3,8 @@ using Primes
 
 # export _magic_sqrt, _is_square_free, QZ_type
 
-export Sqrt, QuadraticRational, get_parts, QZ_type, rational_part
+export Sqrt, QuadraticRational, get_parts, QZ_type
+export rational_part, get_radical
 
 """
     QZ_type
@@ -108,8 +109,17 @@ function rational_part(x::QZ_type)
     _integerize(x)
 end
 
-get_parts(x::QZ_type) = (x,0,1)
 
+
+"""
+    get_radical(::QuadraticRational{d}) 
+    get_radical(::Int)
+    get_radical(::Rational)
+
+Return `d` if a quadratic rational, or `1` if integer/rational
+"""
+get_radical(::QuadraticRational{d}) where {d} = d
+get_radical(::QZ_type) = 1
 
 include("output.jl")
 include("arithmetic.jl")

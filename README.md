@@ -103,6 +103,20 @@ julia> rational_part(2a)
 3
 ```
 
+The function `get_radical` returns the value under the square root sign. If the argument
+is an integer or rational number, return `1`.
+```
+julia> a = 5 + Sqrt(12)
+5 + 2⋅√3
+
+julia> get_radical(a)
+3
+
+julia> get_radical(2//3)
+1
+```
+
+
 ## The `QuadraticRational` Type
 
 Numbers created with `Sqrt` (if not integers) have type `QuadraticRational{d}` where `d`

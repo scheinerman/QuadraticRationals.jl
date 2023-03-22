@@ -28,3 +28,8 @@ x = 3 + Sqrt(5)
 
 x = 2 // 3
 @test get_parts(x) == (2//3, 0, 1)
+
+@test get_radical(1) == 1
+@test get_radical(0) == 1
+@test get_radical(2//3) == 1
+@test get_radical(Sqrt(8)) == 2
