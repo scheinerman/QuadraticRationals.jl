@@ -6,15 +6,18 @@ using Primes
 export Sqrt, QuadraticRational, get_parts, QZ_type
 export rational_part, get_radical
 
+
+Int_type = Union{Int, Int128}
+
 """
     QZ_type
 Type that is either `Int` or `Rational{Int}`
 """
-QZ_type = Union{Int,Rational{Int}}
+QZ_type = Union{Int_type,Rational{Int_type}}
 
 struct QuadraticRational{k} <: Number
-    a::Rational{Int}
-    b::Rational{Int}
+    a::Rational{Int128}
+    b::Rational{Int128}
 end
 
 _QR = QuadraticRational
@@ -27,7 +30,7 @@ _QR{d}(a::Bool) where {d} = _QR{d}(Int(a))
 
 Determine if `n` is square free.
 """
-_is_square_free(n::Int)::Bool = n == radical(n)
+_is_square_free(n::Int_type)::Bool = n == radical(n)
 
 
 """
@@ -39,7 +42,7 @@ If `n` is a perfect square,
 then an `Int` value is returned. Otherwise, the result is of the form
 `0+b√d` where `b` and `d` are integers.
 """
-function Sqrt(n::Int)::Union{Int,_QR}
+function Sqrt(n::Int_type)::Union{Int_type,_QR}
     if n >= 0
         s = isqrt(n)
         if s * s == n
@@ -61,7 +64,7 @@ Examples
 * `_magic_sqrt(12)` → `(4,3)`
 * `_magic_sqrt(-25)` → `(5,-1)`
 """
-function _magic_sqrt(n::Int)::Tuple{Int,Int}
+function _magic_sqrt(n::Int_type)::Tuple{Int_type,Int_type}
     s = n > 0 ? 1 : -1    # sign of n preserved
     n = abs(n)
 
@@ -86,7 +89,7 @@ end
 
 If `x = a + b*√d`, return the three-tuple `(a,b,d)`.
 """
-function get_parts(x::_QR{d})::Tuple{Rational{Int},Rational{Int},Int} where {d}
+function get_parts(x::_QR{d}) where {d}
     return x.a, x.b, d
 end
 

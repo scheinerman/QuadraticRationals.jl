@@ -1,7 +1,7 @@
 import Base: show
 
 
-function _rat_string(x::Rational{Int})
+function _rat_string(x::Rational{T}) where T<:Int_type
     if denominator(x) == 1
         return string(numerator(x))
     end
