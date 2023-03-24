@@ -26,7 +26,7 @@ _QR{d}(a::QZ_type) where {d} = _QR{d}(a, 0)
 _QR{d}(a::Bool) where {d} = _QR{d}(Int(a))
 
 """
-    _is_square_free(n::Int)::Bool
+    _is_square_free(n::Int_type)::Bool
 
 Determine if `n` is square free.
 """
@@ -34,7 +34,7 @@ _is_square_free(n::Int_type)::Bool = n == radical(n)
 
 
 """
-    Sqrt(n::Int)::Union{Int, _QR}
+    Sqrt(n::Int_type)::Union{Int_type,_QR}
 
 Compute the square root of an integer `n`. 
 
@@ -55,7 +55,7 @@ function Sqrt(n::Int_type)::Union{Int_type,_QR}
 end
 
 """
-    _magic_sqrt(n::Int)::Tuple{Int,Int}
+    _magic_sqrt(n::Int_type)::Tuple{Int_type,Int_type}
 
 Return `(a,b)` such that `n = a * sqrt(b)` and `b`
 is square-free. 
@@ -97,7 +97,7 @@ get_parts(x::QZ_type) = (x, 0, 1)
 
 
 function _integerize(a::QZ_type)::QZ_type
-    isinteger(a) ? Int(a) : a
+    isinteger(a) ? Int128(a) : a
 end
 
 """
