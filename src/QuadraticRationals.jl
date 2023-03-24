@@ -7,13 +7,13 @@ export Sqrt, QuadraticRational, get_parts, QZ_type
 export rational_part, get_radical
 
 
-Int_type = Union{Int, Int128}
+Int_type = Union{Int,Int128}
 
 """
     QZ_type
 Type that is either `Int` or `Rational{Int}`
 """
-QZ_type = Union{Int_type,Rational{Int_type}}
+QZ_type = Union{Int,Int128,Rational{Int},Rational{Int128}}
 
 struct QuadraticRational{k} <: Number
     a::Rational{Int128}
@@ -87,17 +87,17 @@ end
 """
     get_parts(x::_QR{d}) where d
 
-If `x = a + b*√d`, return the three-tuple `(a,b,d)`.
+If `x = a + b*√d`, return the 3-tuple `(a,b,d)`.
 """
 function get_parts(x::_QR{d}) where {d}
     return x.a, x.b, d
 end
 
-get_parts(x::QZ_type) = (x,0,1)
+get_parts(x::QZ_type) = (x, 0, 1)
 
 
 function _integerize(a::QZ_type)::QZ_type
-    isinteger(a) ? Int(a) : a 
+    isinteger(a) ? Int(a) : a
 end
 
 """
